@@ -45,8 +45,8 @@ module.exports = {
     ignoreExact: ["/"],
     ignore: ["/doc/"],
     require: {
-      application: true,
-      channel: true,
+      application: false,
+      channel: false,
       device: false,
     },
   },
