@@ -14,7 +14,7 @@
     "http"
   ],
   "paths": {
-    "/sample-module/": {
+    "/customers": {
       "get": {
         "summary": "List all",
         "consumes": [
@@ -23,13 +23,69 @@
         "produces": [
           "application/json"
         ],
-        "parameters": null,
         "responses": {
           "200": {
-            "description": "Customer list"
+            "description": "Array of Customers"
           },
-          "404": {
-            "description": "Not found"
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create customer",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "customer",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created Customer"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update customer",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "customer",
+            "schema": {
+              "type": "object",
+              "required": [
+                "_id",
+                "name"
+              ],
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated Customer"
           },
           "500": {
             "description": "Internal Server Error"
@@ -37,9 +93,10 @@
         }
       }
     },
-    "/sample-module/{name}": {
+    "/customers/{id}": {
       "get": {
-        "summary": "Loads a customer by the name",
+        "operationId": "getById",
+        "summary": "Loads a customer by id",
         "consumes": [
           "application/json"
         ],
@@ -49,8 +106,8 @@
         "parameters": [
           {
             "in": "path",
-            "name": "name",
-            "description": "Name of customer",
+            "name": "id",
+            "description": "Id of customer",
             "required": true,
             "type": "string"
           }
