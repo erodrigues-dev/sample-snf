@@ -13,12 +13,12 @@ class Controller extends BaseController {
   async load(req, res, next) {
     super.activateRequestLog(req); // this will automatically put the request-id on all logs
 
-    const { name } = req.params;
+    const { id } = req.params;
 
     try {
-      this.log.debug(`Loading customer [${name}]`);
+      this.log.debug(`Loading customer [${id}]`);
 
-      const customer = await this.service.loadByName(name);
+      const customer = await this.service.load(id);
 
       if (customer) res.send(200, customer);
       else res.send(404);
@@ -33,23 +33,30 @@ class Controller extends BaseController {
 
   async list(req, res, next) {
     try {
-      return res.json([
-        {
-          name: "any_name 001",
-        },
-        {
-          name: "any_name 002",
-        },
-        {
-          name: "any_name 003",
-        },
-        {
-          name: "any_name 004",
-        },
-      ]);
+      const list = await this.service.list();
+      return res.json(list);
     } catch (error) {
       res.status(500).send("Unexpected error");
       return next();
+    }
+  }
+
+  async create(req, res, next) {
+    try {
+      const { name } = req.body;
+      const model = await this.service.create(name);
+      return res.json(model);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async update(req, res, next) {
+    try {
+      const model = await this.service.update(req.body);
+      return res.json(model);
+    } catch (error) {
+      next(error);
     }
   }
 }

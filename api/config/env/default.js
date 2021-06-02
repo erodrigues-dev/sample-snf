@@ -52,7 +52,7 @@ module.exports = {
   },
   db: {
     mongodb: {
-      first: {
+      application: {
         url: "mongodb://localhost:27017/sample-snf",
         options: {
           useNewUrlParser: true,

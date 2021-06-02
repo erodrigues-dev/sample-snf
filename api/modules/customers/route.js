@@ -8,4 +8,6 @@ const Controller = require("./controller");
 const { full } = route.info(__filename);
 
 server.get(`${full}`, ControllerFactory.build(Controller, "list"));
-server.get(`${full}/:name`, ControllerFactory.build(Controller, "load"));
+server.get(`${full}/:id`, ControllerFactory.build(Controller, "load"));
+server.post(`${full}`, ControllerFactory.build(Controller, "create"));
+server.put(`${full}`, ControllerFactory.build(Controller, "update"));
