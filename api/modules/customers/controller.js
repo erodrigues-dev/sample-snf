@@ -45,7 +45,7 @@ class Controller extends BaseController {
     try {
       const { name } = req.body;
       const model = await this.service.create(name);
-      return res.json(model);
+      return res.status(201).json(model);
     } catch (error) {
       next(error);
     }
