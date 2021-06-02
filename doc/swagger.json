@@ -14,6 +14,29 @@
     "http"
   ],
   "paths": {
+    "/sample-module/": {
+      "get": {
+        "summary": "List all",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": null,
+        "responses": {
+          "200": {
+            "description": "Customer list"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/sample-module/{name}": {
       "get": {
         "summary": "Loads a customer by the name",
