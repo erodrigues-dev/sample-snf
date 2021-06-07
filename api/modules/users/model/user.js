@@ -14,4 +14,4 @@ const schema = mongoose.Schema(
   }
 );
 
-module.exports = connection.model("User", schema);
+module.exports = connection.models.User || connection.model("User", schema);

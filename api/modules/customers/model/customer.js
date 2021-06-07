@@ -15,4 +15,5 @@ const schema = mongoose.Schema(
   }
 );
 
-module.exports = connection.model("Customer", schema);
+module.exports =
+  connection.models.Customer ?? connection.model("Customer", schema);
