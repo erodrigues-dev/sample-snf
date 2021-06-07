@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "clear;nyc --reporter=html --reporter=lcov --reporter=text-lcov --reporter=text --report-dir=test-reports ./node_modules/mocha/bin/mocha ./api/modules/*/test/unit/*.unit.js --timeout 12000",
     "start": "clear; rm -rf logs/*.log*; nodemon index.js;",
-    "test:dev": "clear;./node_modules/mocha/bin/mocha ./api/modules/*/test/unit/*.unit.js --timeout 12000",
+    "test": "clear;nyc --reporter=html --reporter=lcov --reporter=text-lcov --reporter=text --report-dir=test-reports ./node_modules/mocha/bin/mocha ./api/modules/*/test/unit/*.unit.js --timeout 12000",
+    "test:dev": "clear;./node_modules/mocha/bin/mocha ./api/modules/*/test/unit/*.unit.js --timeout 12000 --watch",
     "integration": "clear;./node_modules/mocha/bin/mocha ./api/modules/*/test/integration/*.integration.js",
     "lint": "clear; ./node_modules/.bin/eslint api/*",
     "doc:edit": "clear; swagger_swagger_fileName=doc/swagger.yaml swagger project edit",
@@ -23,8 +23,10 @@
   },
   "homepage": "https://github.com/diogolmenezes/simple-node-bootstrap#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "mongoose": "^5.4.19",
-    "simple-node-framework": "^2.1.1"
+    "simple-node-framework": "^2.1.1",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "chai": "^4.2.0",
