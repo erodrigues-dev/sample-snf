@@ -36,17 +36,89 @@ describe("User Controller Test", () => {
       },
     };
     const res = {
-      send: (code, errors) => {
-        console.log(">>>>", code, errors);
+      send: (code) => {
         expect(code).to.be.equal(400);
         done();
       },
     };
 
-    userController.create(req, res, sinon.spy()).catch(done);
+    userController.create(req, res).catch(done);
   });
 
-  it("Should return 400 if no username is provided");
+  it("Should return 400 if no username is provided", (done) => {
+    sandbox.stub(userController.service, "create").returns(
+      Promise.resolve({
+        id: "any_id",
+        name: "any_name",
+        username: "any_username",
+      })
+    );
+    const req = {
+      body: {
+        name: "any_name",
+        username: "",
+        password: "any_password",
+      },
+    };
+    const res = {
+      send: (code) => {
+        expect(code).to.be.equal(400);
+        done();
+      },
+    };
 
-  it("Should return 400 if no password is provided");
+    userController.create(req, res).catch(done);
+  });
+
+  it("Should return 400 if no password is provided", (done) => {
+    sandbox.stub(userController.service, "create").returns(
+      Promise.resolve({
+        id: "any_id",
+        name: "any_name",
+        username: "any_username",
+      })
+    );
+    const req = {
+      body: {
+        name: "any_name",
+        username: "any_username",
+        password: "",
+      },
+    };
+    const res = {
+      send: (code) => {
+        expect(code).to.be.equal(400);
+        done();
+      },
+    };
+
+    userController.create(req, res).catch(done);
+  });
+
+  it("should return a user if all fields is provided", (done) => {
+    sandbox.stub(userController.service, "create").returns(
+      Promise.resolve({
+        id: "any_id",
+        name: "any_name",
+        username: "any_username",
+      })
+    );
+
+    const req = {
+      body: {
+        name: "any_name",
+        username: "any_username",
+        password: "1234",
+      },
+    };
+
+    const res = {
+      send: (user) => {
+        expect(user.id).to.be.equal("any_id");
+        done();
+      },
+    };
+
+    userController.create(req, res).catch(done);
+  });
 });

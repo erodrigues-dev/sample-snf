@@ -18,17 +18,15 @@ class UserController extends BaseController {
     this.service = new UserService();
   }
 
-  async create(req, res, next) {
+  async create(req, res) {
     try {
       super.activateRequestLog(req);
-      // const data = await createSchema.validate(req.body, { abortEarly: false });
-      // const user = await this.service.create(data);
-      // return res.send(user);
-      res.send(200);
-      next();
+      const data = await createSchema.validate(req.body, { abortEarly: false });
+      const user = await this.service.create(data);
+      return res.send(user);
     } catch (error) {
       if (error.name === "ValidationError") return res.send(400, error.errors);
-      next(error);
+      return res.send(500, { message: "Unexpected error" });
     }
   }
 }
